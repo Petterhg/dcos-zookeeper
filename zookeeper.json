@@ -1,0 +1,168 @@
+{
+  "id": "/zookeeper",
+  "apps": [
+    {
+      "id": "/zookeeper/node1",
+      "args":[
+        "192.168.1.115,192.168.1.149,192.168.1.157",
+        "1"
+      ],
+      "constraints": [
+        [
+            "hostname",
+            "CLUSTER",
+            "192.168.1.115"
+        ]
+      ], 
+      "container": {
+        "type": "DOCKER",
+        "docker": {
+          "image": "registry.marathon.l4lb.thisdcos.directory:5000/zookeeper",
+          "privileged": true,
+          "forcePullImage": true,
+          "network": "BRIDGE",
+          "portMappings": [
+            {
+              "containerPort": 1337,
+              "hostPort": 1337
+            },
+            {
+              "containerPort": 1338,
+              "hostPort": 1338
+            },
+            {
+              "containerPort": 1339,
+              "hostPort": 1339
+            }
+          ]
+        }
+      },
+      "cpus": 0.5,
+      "instances": 1,
+      "mem": 256,
+      "requirePorts": true,
+      "healthChecks": [
+        {
+          "gracePeriodSeconds": 300,
+          "intervalSeconds": 60,
+          "maxConsecutiveFailures": 3,
+          "timeoutSeconds": 20,
+          "delaySeconds": 15,
+          "protocol": "COMMAND",
+          "command": {
+            "value": "echo ruok | nc localhost 1337 | grep imok"
+          }
+        }
+      ]
+    },
+    {
+      "id": "/zookeeper/node2",
+      "args":[
+        "192.168.1.115,192.168.1.149,192.168.1.157",
+        "2"
+      ],
+      "acceptedResourceRoles": [ "slave_public" ],
+      "constraints": [
+        [
+            "hostname",
+            "CLUSTER",
+            "192.168.1.149"
+        ]
+      ], 
+      "container": {
+        "type": "DOCKER",
+        "docker": {
+          "image": "registry.marathon.l4lb.thisdcos.directory:5000/zookeeper",
+          "privileged": true,
+          "forcePullImage": true,
+          "network": "BRIDGE",
+          "portMappings": [
+            {
+              "containerPort": 1337,
+              "hostPort": 1337
+            },
+            {
+              "containerPort": 1338,
+              "hostPort": 1338
+            },
+            {
+              "containerPort": 1339,
+              "hostPort": 1339
+            }
+          ]
+        }
+      },
+      "cpus": 0.5,
+      "instances": 1,
+      "mem": 256,
+      "requirePorts": true,
+      "healthChecks": [
+        {
+          "gracePeriodSeconds": 300,
+          "intervalSeconds": 60,
+          "maxConsecutiveFailures": 3,
+          "timeoutSeconds": 20,
+          "delaySeconds": 15,
+          "protocol": "COMMAND",
+          "command": {
+            "value": "echo ruok | nc localhost 1337 | grep imok"
+          }
+        }
+      ]
+    },
+    {
+      "id": "/zookeeper/node3",
+      "args":[
+        "192.168.1.115,192.168.1.149,192.168.1.157",
+        "3"
+      ],
+      "constraints": [
+        [
+            "hostname",
+            "CLUSTER",
+            "192.168.1.157"
+        ]
+      ], 
+      "container": {
+        "type": "DOCKER",
+        "docker": {
+          "image": "registry.marathon.l4lb.thisdcos.directory:5000/zookeeper",
+          "privileged": true,
+          "forcePullImage": true,
+          "network": "BRIDGE",
+          "portMappings": [
+            {
+              "containerPort": 1337,
+              "hostPort": 1337
+            },
+            {
+              "containerPort": 1338,
+              "hostPort": 1338
+            },
+            {
+              "containerPort": 1339,
+              "hostPort": 1339
+            }
+          ]
+        }
+      },
+      "cpus": 0.5,
+      "instances": 1,
+      "mem": 256,
+      "requirePorts": true,
+      "healthChecks": [
+        {
+          "gracePeriodSeconds": 300,
+          "intervalSeconds": 60,
+          "maxConsecutiveFailures": 3,
+          "timeoutSeconds": 20,
+          "delaySeconds": 15,
+          "protocol": "COMMAND",
+          "command": {
+            "value": "echo ruok | nc localhost 1337 | grep imok"
+          }
+        }
+      ]
+   }
+  ]
+}
